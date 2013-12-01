@@ -1,0 +1,3 @@
+[submodule "TyranoScript/tyranoscript"]
+	path = TyranoScript/tyranoscript
+	url = https://github.com/keitoAtZ/tyranoscript.git
