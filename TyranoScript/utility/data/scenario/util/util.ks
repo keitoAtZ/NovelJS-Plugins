@@ -1,4 +1,4 @@
-; Utility プラグイン v0.3
+; Utility プラグイン v0.4
 ; keito http://keito-works.com/
 ;
 ; ＜導入すると、以下の機能が追加されます＞
@@ -13,7 +13,7 @@
 ;
 ; ■[button_hover]
 ;   ボタン[button]の後に、呼び出してください
-;   [button graphic="load.png" target=*start]
+;   [button …省略…]
 ;   [button_hover hover="hover.png"]
 ;
 ; ■[tyrano_center]
@@ -25,6 +25,14 @@
 ;   [clickable_map graphic="map.png" disable=000000 target=*click]
 ;   終了後はクリアください
 ;   [clickable_map_clear]
+;
+;   ※クリックした値は、clickable_map.clickに格納されます
+;   使用例
+;   [if exp="clickable_map.click=='FF0000'"]
+;     クリックしたカラーは、赤(FF0000)です。
+;   [else]
+;     クリックしたカラーは、[emb exp="clickable_map.click"]です。
+;   [endif]
 ;
 ;
 ; ＜パラメータ一覧＞
@@ -68,7 +76,7 @@ $.getScript('./data/scenario/util/button_hover.js');
 [macro name="clickable_map"]
 [iscript]
 with(tyrano.plugin.kag) {
-  variable.tf.clickable_map = {};
+  variable.tf.clickable_map = [];
   variable.tf.clickable_map.graphic = stat.mp.graphic;
   variable.tf.clickable_map.disable = stat.mp.disable;
   variable.tf.clickable_map.storage = stat.mp.storage;

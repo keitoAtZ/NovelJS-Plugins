@@ -22,7 +22,7 @@
 次に、クリッカブルマップですが[l][r]
 使用すると「全画面がクリッカブルマップ化」します。[r][l]
 [r]
-選択できるのは、ドア、通路、通路奥です。
+選択できるのは、ドア、廊下、廊下奥です。
 
 [back storage="rouka_map.jpg" time=1000]
 [clickable_map graphic="rouka_color_map.png" disable=040404 target=*click folder=bgimage]
@@ -38,7 +38,7 @@
 [elsif exp="clickable_map.click=='99FF99'"]
 廊下をクリックしました。[l][r]
 [else]
-通路奥をクリックしました。[l][r]
+廊下奥をクリックしました。[l][r]
 [endif]
 クリックしたカラーは、[emb exp="clickable_map.click"]です。[l][r]
 [r]

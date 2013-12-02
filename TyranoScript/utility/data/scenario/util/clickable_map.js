@@ -1,4 +1,4 @@
-var clickable_map = {};
+var clickable_map = [];
 with(tyrano.plugin.kag.variable) {
   //引き継ぎ変数
   clickable_map.graphic = tf.clickable_map.graphic;
@@ -18,6 +18,8 @@ clickable_map.click = '';
 clickable_map.canvas = '';
 clickable_map.canvas_ctx = '';
 clickable_map.img = new Image();
+clickable_map.offsetX = '';
+clickable_map.offsetY = '';
 clickable_map.colorPicker = '';
 clickable_map.toHex = function(n) {
   n = parseInt(n,10);
@@ -47,19 +49,26 @@ with(clickable_map) {
 
   //マウス移動時
   canvas.on('mousemove', function(e) {
-    colorPicker = canvas_ctx.getImageData(e.offsetX, e.offsetY, 1, 1);
-
+    //Firefoxの考慮;
+    if (isNaN(e.offsetX) || isNaN(e.offsetY)) {
+      offsetX = e.pageX - clickable_map.tag.offset().left;
+      offsetY = e.pageY - clickable_map.tag.offset().top;
+    } else {
+      offsetX = e.offsetX;
+      offsetY = e.offsetY;
+    }
+    colorPicker = canvas_ctx.getImageData(offsetX, offsetY, 1, 1);
     colorPicker = toHex(colorPicker.data[0]) +
       toHex(colorPicker.data[1]) +
       toHex(colorPicker.data[2]);
 
     if (colorPicker == disable.toUpperCase()) {
-      //無効カラーの場合、カーソルクリアして画像を元に戻す
+      //無効カラーの場合、カーソルクリアする
       if (canvas.css('cursor') == cursor) {
         canvas.css('cursor', '');
       }
     } else {
-      //不透明の場合、カーソル設定して画像をhover用に切り替える
+      //不透明の場合、カーソル設定する
       if (canvas.css('cursor') != cursor) {
         canvas.css('cursor', cursor);
       }
