@@ -56,7 +56,7 @@
 ;
 ;
 ; ＜注意点＞
-;   ティラノスクリプトVer2.91 で動作確認
+;   ティラノスクリプトVer2.92 で動作確認
 ;
 [macro name="tyrano_center"]
 [iscript]
