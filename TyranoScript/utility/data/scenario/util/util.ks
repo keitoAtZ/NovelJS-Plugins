@@ -1,4 +1,4 @@
-; Utility プラグイン v0.4
+; Utility プラグイン v0.4.5
 ; keito http://keito-works.com/
 ;
 ; ＜導入すると、以下の機能が追加されます＞
@@ -66,27 +66,35 @@ $.getScript('./data/scenario/util/tyrano_center.js');
 
 [macro name="button_hover"]
 [iscript]
-with(tyrano.plugin.kag) {
-  variable.tf.button_hover = stat.mp.hover;
-}
+TG.variable.tf.button_hover = TG.stat.mp.hover;
 $.getScript('./data/scenario/util/button_hover.js');
 [endscript]
 [endmacro]
 
 [macro name="clickable_map"]
 [iscript]
-with(tyrano.plugin.kag) {
-  variable.tf.clickable_map = [];
-  variable.tf.clickable_map.graphic = stat.mp.graphic;
-  variable.tf.clickable_map.disable = stat.mp.disable;
-  variable.tf.clickable_map.storage = stat.mp.storage;
-  variable.tf.clickable_map.target  = stat.mp.target;
-  variable.tf.clickable_map.x       = stat.mp.x;
-  variable.tf.clickable_map.y       = stat.mp.y;
-  variable.tf.clickable_map.folder  = stat.mp.folder;
-}
+TG.variable.tf.clickable_map = [];
+TG.variable.tf.clickable_map.graphic = TG.stat.mp.graphic;
+TG.variable.tf.clickable_map.disable = TG.stat.mp.disable;
+TG.variable.tf.clickable_map.storage = TG.stat.mp.storage;
+TG.variable.tf.clickable_map.target  = TG.stat.mp.target;
+TG.variable.tf.clickable_map.x       = TG.stat.mp.x;
+TG.variable.tf.clickable_map.y       = TG.stat.mp.y;
+TG.variable.tf.clickable_map.folder  = TG.stat.mp.folder;
+TG.variable.tf.clickable_map.loaded  = false;
 $.getScript('./data/scenario/util/clickable_map.js');
 [endscript]
+
+*loading
+[if exp="tyrano.plugin.kag.variable.tf.clickable_map.loaded==false"]
+  [wait time=500]
+  [jump target="*loading"]
+[else]
+  [jump target="*loaded"]
+[endif]
+[s]
+
+*loaded
 [endmacro]
 
 [macro name="clickable_map_clear"]

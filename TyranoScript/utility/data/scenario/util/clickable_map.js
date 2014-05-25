@@ -91,3 +91,6 @@ with(clickable_map) {
     }
   });
 }
+
+//読み込み終了
+tyrano.plugin.kag.variable.tf.clickable_map.loaded = true;
