@@ -10,36 +10,39 @@
 ; [call storage="clickable_map/clickable_map.ks"]
 ;
 ; ■[clickable_map]
-;   クリッカブルマップを貼ります
-;   [clickable_map graphic=rouka_map.png target=*click]
+;   クリッカブルマップを貼ります。
+;   [clickable_map graphic=rouka_map.png storage=scene1.ks target=*click]
 ;
-;   終了後はクリアください
+;   「target=*click」へ移動後、再度クリックイベントを有効化します。
+;   [clickable_map_enable]
+;
+;   終了後はクリアください。
 ;   [clickable_map_clear]
 ;
 ;
 ; ※クリックした値は、clickable_map.clickに格納されます
 ; ＜使用例＞
 ;   [bg storage=rouka.jpg time=100]
-;   [clickable_map graphic=rouka_map.png target=*click]
-;   [s]
+;   [clickable_map graphic=rouka_map.png storage=scene1.ks target=*click]
 ;   *click
+;   [clickable_map_clear]
 ;   [if exp="clickable_map.click=='0000FF'"]
 ;     クリックしたカラーは、青(0000FF)です。
 ;   [else]
 ;     クリックしたカラーは、[emb exp="clickable_map.click"]です。
 ;   [endif]
-;   [clickable_map_clear]
+;   [clickable_map_enable]
+;   ;または[clickable_map_clear]
 ;
 ;
 ; ＜パラメータ一覧＞
 ; [clickable_map]
 ;   graphic(必須): 画像を指定します。ファイルは、bgimageフォルダに入れて下さい。
 ;                  (画像は、着色部分がクリック領域になります。透明部分はクリック無効領域になります。)
+;   storage(必須): ジャンプ先のシナリオファイルを指定します。
+;   target (必須): ジャンプ先のラベルを指定します。
+;                  クリッカブルマップ有効時は強制的にシナリオ進行が停止しますので、必ずジャンプ先を指定して下さい。
 ;   visible : 非表示にする場合は、falseを指定します。(デフォルト:true)
-;   storage : ジャンプ先のシナリオファイルを指定します。
-;               ※省略すると、現在のシナリオファイル内であると見なされます
-;   target  : ジャンプ先のラベルを指定します。
-;               ※省略すると、ファイルの先頭から実行されます
 ;   folder  : フォルダの場所を変える場合は、指定ください。(デフォルト:bgimage)
 ;
 ;
@@ -70,6 +73,7 @@ clickable_map.offsetX = '';
 clickable_map.offsetY = '';
 clickable_map.colorPicker = '';
 clickable_map.imageData = '';
+clickable_map.run = true;
 clickable_map.toHex = function(n) {
   n = parseInt(n,10);
   if (isNaN(n)) {
@@ -135,14 +139,24 @@ with(clickable_map) {
       clickable_map.click = colorPicker;
       if (colorPicker != disable.toUpperCase() && imageData[3] != 0) {
         if (target != '' && colorPicker != '') {
-          TG.kag.ftag.startTag("jump", {storage:storage, target:target});
+          if(run) {
+            run = false;
+            TG.kag.ftag.startTag("jump", {storage:storage, target:target});
+          }
         }
       }
     });
   }
 }
+TG.kag.ftag.startTag("s");
 [endscript]
+[endmacro]
 
+[macro name="clickable_map_enable"]
+[iscript]
+TG.kag.ftag.startTag("s");
+clickable_map.run = true;
+[endscript]
 [endmacro]
 
 [macro name="clickable_map_clear"]

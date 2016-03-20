@@ -21,8 +21,7 @@
 ;----------------------------------------
 ;クリッカブルマップのサンプル
 [bg storage=rouka.jpg time=100]
-[clickable_map graphic=rouka_map.png target=*click]
-[s]
+[clickable_map graphic=rouka_map.png storage=scene1.ks target=*click]
 
 *click
 [if exp="clickable_map.click=='0000FF'"]
@@ -30,9 +29,8 @@
 [else]
   クリックしたカラーは、[emb exp="clickable_map.click"]です。
 [endif]
-[clickable_map_clear]
-[r]クリッカブルマップをクリアしました。
-[s]
+[clickable_map_enable]
+;または[clickable_map_clear]
 ;----------------------------------------
 
 ;キャラクターの名前が表示される文字領域
