@@ -20,7 +20,7 @@
 ; ※クリックした値は、clickable_map.clickに格納されます
 ; ＜使用例＞
 ;   [bg storage=rouka.jpg time=100]
-;   [clickable_map graphic=rouka_color_map.png target=*click]
+;   [clickable_map graphic=rouka_map.png target=*click]
 ;   [s]
 ;   *click
 ;   [if exp="clickable_map.click=='0000FF'"]
