@@ -1,4 +1,4 @@
-; クリッカブルマップ プラグイン v0.5
+; クリッカブルマップ プラグイン v0.5.1
 ; keito http://keito-works.com/
 ;
 ; ＜導入すると、以下の機能が追加されます＞
@@ -111,7 +111,7 @@ with(clickable_map) {
       colorPicker = toHex(imageData[0]) +
         toHex(imageData[1]) +
         toHex(imageData[2]);
-      if (colorPicker == disable.toUpperCase()) {
+      if (colorPicker == disable.toUpperCase() && imageData[3] == 0) {
         //無効カラーの場合、カーソルクリアする
         if (canvas.css('cursor') == cursor) {
           canvas.css('cursor', '');
